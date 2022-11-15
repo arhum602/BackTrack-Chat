@@ -217,7 +217,7 @@ const CreateServerLabel = tw.label`
 `
 
 const CreateServerInput = tw.input`
-  w-full h-10 p-2.5 border rounded-middle text-gray-100 font-medium
+  w-full h-10 p-2.5 border rounded-middle text-gray-500 font-medium
 `
 
 const SubText = tw.span`

@@ -100,7 +100,7 @@ const Home: NextPage = () => {
   return (
     <PageContainer>
       <Head>
-        <title>{channel.name ? channel.name : "Banter"}</title>
+        <title>{channel.name ? channel.name : "Backtrack-Chat"}</title>
 
         <link rel="manifest" href="/manifest.json" />
       </Head>

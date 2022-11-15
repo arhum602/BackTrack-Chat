@@ -91,7 +91,7 @@ export default function LoginForm() {
         </BanterIcon>
         <Caption>Log in as Guest</Caption>
         <SubCaption>
-          Click this to login to Banter with a <Bold>guest account</Bold>{" "}
+          Click this to login to Backtrack-Chat with a <Bold>guest account</Bold>{" "}
           instantly.
         </SubCaption>
       </BanterContainer>

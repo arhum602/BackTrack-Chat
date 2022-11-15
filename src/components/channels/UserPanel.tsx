@@ -22,7 +22,10 @@ export default function UserPanel() {
   }
 
   function backToBoards() {
-    window.open(`https://localhost:3000`, "_blank")
+    window.open(
+      `https://63738ec0cee60a5ae0d062ad--radiant-naiad-3662ed.netlify.app/board/-NGuQQ75ex50_Xgv9nDM`,
+      "_blank"
+    )
   }
 
   function copyUsername() {

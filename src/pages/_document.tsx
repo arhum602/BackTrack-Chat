@@ -1,12 +1,15 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document"
 
 export default function Document() {
   return (
     <Html>
       <Head>
-        <title>Banter</title>
+        <title>Backtrack-Chat</title>
 
-        <meta name="description" content="Banter is a Discord clone" />
+        <meta
+          name="description"
+          content="Backtrack-Chat is a chat application for event management site Backtrack."
+        />
 
         <link rel="manifest" href="/manifest.json" />
       </Head>
@@ -15,5 +18,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }

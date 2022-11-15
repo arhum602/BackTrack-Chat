@@ -1,28 +1,28 @@
-import { useRef } from "react";
-import Link from "next/link";
-import { createAccount } from "../../firebase";
-import tw from "tailwind-styled-components/dist/tailwind";
+import { useRef } from "react"
+import Link from "next/link"
+import { createAccount } from "../../firebase"
+import tw from "tailwind-styled-components/dist/tailwind"
 
 export default function RegistrationForm() {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const usernameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const usernameRef = useRef<HTMLInputElement>(null)
 
   async function handleSubmit(e: any) {
-    e.preventDefault();
+    e.preventDefault()
 
-    let email = "";
-    let password = "";
-    let username = "";
+    let email = ""
+    let password = ""
+    let username = ""
 
     if (!emailRef.current || !passwordRef.current || !usernameRef.current)
-      return;
+      return
 
-    email = emailRef.current.value;
-    password = passwordRef.current.value;
-    username = usernameRef.current.value;
+    email = emailRef.current.value
+    password = passwordRef.current.value
+    username = usernameRef.current.value
 
-    await createAccount(email, password, username);
+    await createAccount(email, password, username)
   }
 
   return (
@@ -78,73 +78,73 @@ export default function RegistrationForm() {
 
         <Fine>
           By registering, you agree to be respectful to others and not sue
-          Banter.
+          Backtrack-Chat.
         </Fine>
       </RegisterContainer>
     </Container>
-  );
+  )
 }
 
 const Container = tw.form`
   flex flex-col w-120 bg-white rounded-md p-8
-`;
+`
 
 const Header = tw.h3`
   text-center text-2xl leading-[1.875rem] font-semibold
-`;
+`
 
 const RegisterContainer = tw.div`
   flex flex-col w-full h-full mt-5
-`;
+`
 
 const GenericFieldset = tw.fieldset`
   flex flex-col mb-5
-`;
+`
 
 const GenericLabel = tw.label`
   mb-2 text-xs text-gray-600 font-semibold
-`;
+`
 
 const GenericInput = tw.input`
   border-2 rounded-md p-1
-`;
+`
 
 const EmailField = tw(GenericFieldset)`
-`;
+`
 
 const EmailLabel = tw(GenericLabel)`
-`;
+`
 
 const EmailInput = tw(GenericInput)`
-`;
+`
 
 const UsernameField = tw(GenericFieldset)`
-`;
+`
 
 const UsernameLabel = tw(GenericLabel)`
-`;
+`
 
 const UsernameInput = tw(GenericInput)`
-`;
+`
 
 const PasswordField = tw(GenericFieldset)`
-`;
+`
 
 const PasswordLabel = tw(GenericLabel)`
-`;
+`
 
 const PasswordInput = tw(GenericInput)`
-`;
+`
 
 const ContinueButton = tw.input`
   w-full h-10 px-4 py-0.5 bg-indigo-500 rounded text-white cursor-pointer
-`;
+`
 
 const LinkText = tw.button`
   text-blue-600 cursor-pointer w-fit mt-2 text-sm font-medium
   hover:underline hover:decoration-blue-600
-`;
+`
 
 const Fine = tw.span`
   mt-5 text-xs
-`;
+`

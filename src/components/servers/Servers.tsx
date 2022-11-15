@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { useEffect } from "react";
-import tw from "tailwind-styled-components/dist/tailwind";
-import { useAppDispatch } from "../../redux/hooks";
+import Link from "next/link"
+import { useEffect } from "react"
+import tw from "tailwind-styled-components/dist/tailwind"
+import { useAppDispatch } from "../../redux/hooks"
 import {
   ServerData,
   setServers,
@@ -9,53 +9,53 @@ import {
   useServersState,
   resetServerState,
   setServerIDs,
-} from "../../features/servers";
-import { query, collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebase";
-import Image from "next/image";
-import banterIcon from "../../../assets/banterIcon.svg";
-import DefaultServerIcon from "./DefaultServerIcon";
-import { useUserState } from "../../features/user";
-import { useRouter } from "next/router";
-import AddServerIcon from "./AddServerIcon";
-import { setAddServerOpen } from "../../features/addServer";
+} from "../../features/servers"
+import { query, collection, onSnapshot } from "firebase/firestore"
+import { db } from "../../../firebase"
+import Image from "next/image"
+import banterIcon from "../../../assets/banterIcon.svg"
+import DefaultServerIcon from "./DefaultServerIcon"
+import { useUserState } from "../../features/user"
+import { useRouter } from "next/router"
+import AddServerIcon from "./AddServerIcon"
+import { setAddServerOpen } from "../../features/addServer"
 
 export default function Servers() {
-  const { servers, serverIDs } = useServersState();
-  const { user } = useUserState();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  const { servers, serverIDs } = useServersState()
+  const { user } = useUserState()
+  const router = useRouter()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (!user.userID) return;
+    if (!user.userID) return
 
-    const q = query(collection(db, "users", user.userID, "servers"));
+    const q = query(collection(db, "users", user.userID, "servers"))
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const serverIDs: string[] = [];
+      const serverIDs: string[] = []
 
       querySnapshot.forEach((doc) => {
-        serverIDs.push(doc.id);
-      });
+        serverIDs.push(doc.id)
+      })
 
-      dispatch(setServerIDs(serverIDs));
-    });
+      dispatch(setServerIDs(serverIDs))
+    })
 
     return () => {
-      unsubscribe();
-    };
-  }, [user]);
+      unsubscribe()
+    }
+  }, [user])
 
   useEffect(() => {
-    const q = query(collection(db, "servers"));
+    const q = query(collection(db, "servers"))
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const serverList: ServerData[] = [];
+      const serverList: ServerData[] = []
 
       querySnapshot.forEach((doc) => {
-        if (!serverIDs.includes(doc.id)) return;
+        if (!serverIDs.includes(doc.id)) return
 
-        const docData = doc.data();
+        const docData = doc.data()
 
         const server: ServerData = {
           name: docData.name,
@@ -71,25 +71,25 @@ export default function Servers() {
           roles: docData.roles,
 
           contentFilter: docData.contentFilter,
-        };
+        }
 
-        serverList.push(server);
-      });
+        serverList.push(server)
+      })
 
-      dispatch(setServers(serverList));
-    });
+      dispatch(setServers(serverList))
+    })
 
     return () => {
-      unsubscribe();
-    };
-  }, [serverIDs]);
+      unsubscribe()
+    }
+  }, [serverIDs])
 
   function handleClick(server: ServerData) {
-    dispatch(setServer(server));
+    dispatch(setServer(server))
   }
 
   function addServer() {
-    dispatch(setAddServerOpen(true));
+    dispatch(setAddServerOpen(true))
   }
 
   return (
@@ -137,41 +137,41 @@ export default function Servers() {
                 )}
               </ServerContainer>
             </Link>
-          );
+          )
         })}
         <AddServerIconContainer onClick={addServer}>
           <CreateServerIcon />
         </AddServerIconContainer>
       </Sidebar>
     </Nav>
-  );
+  )
 }
 
 interface ServerIconProps {
-  server: ServerData;
-  path: string;
+  server: ServerData
+  path: string
 }
 
 interface BanterProps {
-  serverID?: string;
-  path: string;
+  serverID?: string
+  path: string
 }
 
 const Nav = tw.nav`
   w-18 h-full
-`;
+`
 
 const Sidebar = tw.ol`
-  flex flex-col bg-gray-200 pt-3 w-18 h-full items-center overflow-x-hidden overflow-y-auto
-`;
+  flex flex-col bg-sky-500 pt-3 w-18 h-full items-center overflow-x-hidden overflow-y-auto
+`
 
 const BanterIcon = tw.figure`
   relative flex justify-center w-full cursor-pointer group
-`;
+`
 
 const ServerContainer = tw.li`
   relative flex justify-center mb-2 w-full cursor-pointer group
-`;
+`
 
 const ServerBar = tw.span`
   absolute left-0 w-1 h-10 bg-black rounded-r-middle
@@ -180,31 +180,31 @@ const ServerBar = tw.span`
     props.serverID && props.path.includes(props.serverID)
       ? "flex h-10 top-1"
       : "hidden h-5 top-3.5"}
-`;
+`
 
 const StyledImage = tw(Image)`
   rounded-3xl transition-all ease-linear object-cover
   group-hover:rounded-xl
-`;
+`
 
 const CustomServerIcon = tw(StyledImage)`
   ${(props: BanterProps) =>
     props.serverID && props.path.includes(props.serverID)
       ? "rounded-xl fill-primary"
       : "rounded-3xl fill-white"}
-`;
+`
 
 const BanterImage = tw(StyledImage)`
   ${(props: BanterProps) => {
     switch (props.path) {
       case "/channels/@me":
-        return "rounded-xl";
+        return "rounded-xl"
 
       default:
-        return null;
+        return null
     }
   }}
-`;
+`
 
 const ServerIcon = tw(DefaultServerIcon)`
   text-lg transition-all ease-linear
@@ -213,17 +213,17 @@ const ServerIcon = tw(DefaultServerIcon)`
     props.path.includes(props.server.serverID)
       ? "rounded-xl fill-primary"
       : "rounded-3xl fill-white"}
-`;
+`
 
 const AddServerIconContainer = tw.div`
   cursor-pointer group
-`;
+`
 
 const CreateServerIcon = tw(AddServerIcon)`
   transition-all ease-linear flex-none rounded-3xl fill-white cursor-pointer
   group-hover:rounded-xl group-hover:fill-active
-`;
+`
 
 const Separator = tw.div`
   w-8 h-0.5 my-2 bg-gray-300
-`;
+`

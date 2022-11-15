@@ -1,57 +1,57 @@
-import Image from "next/image";
-import tw from "tailwind-styled-components/dist/tailwind";
-import { useAppDispatch } from "../../redux/hooks";
-import closeIcon from "../../../assets/closeIcon.svg";
-import { useRef, useState } from "react";
-import { createChannel } from "../../../firebase";
-import { setCreateChannelOpen } from "../../features/serverSettings";
-import { useServersState } from "../../features/servers";
+import Image from "next/image"
+import tw from "tailwind-styled-components/dist/tailwind"
+import { useAppDispatch } from "../../redux/hooks"
+import closeIcon from "../../../assets/closeIcon.svg"
+import { useRef, useState } from "react"
+import { createChannel } from "../../../firebase"
+import { setCreateChannelOpen } from "../../features/serverSettings"
+import { useServersState } from "../../features/servers"
 
 export default function CreateChannel() {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [isInputEmpty, setIsInputEmpty] = useState(false);
-  const { server } = useServersState();
-  const [channelType, setChannelType] = useState("text");
-  const dispatch = useAppDispatch();
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [isInputEmpty, setIsInputEmpty] = useState(false)
+  const { server } = useServersState()
+  const [channelType, setChannelType] = useState("text")
+  const dispatch = useAppDispatch()
 
   function closeWindow() {
-    dispatch(setCreateChannelOpen(false));
+    dispatch(setCreateChannelOpen(false))
   }
 
   function stopPropagation(e: React.MouseEvent<HTMLDivElement>) {
-    e.stopPropagation();
+    e.stopPropagation()
   }
 
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (!inputRef.current || isInputEmpty) return;
+    if (!inputRef.current || isInputEmpty) return
 
-    let channelName = inputRef.current.value;
+    let channelName = inputRef.current.value
 
     if (channelName[channelName.length - 1] === "-")
-      channelName = channelName.slice(0, -1);
+      channelName = channelName.slice(0, -1)
 
-    createChannel(server.serverID, channelName, channelType);
+    createChannel(server.serverID, channelName, channelType)
 
-    closeWindow();
+    closeWindow()
   }
 
   function handleChange() {
-    if (!inputRef.current) return;
+    if (!inputRef.current) return
 
     switch (inputRef.current.value) {
       case " ":
       case "-":
-        return (inputRef.current.value = "");
+        return (inputRef.current.value = "")
     }
 
     if (!inputRef.current.value) {
-      setIsInputEmpty(true);
+      setIsInputEmpty(true)
     } else {
-      setIsInputEmpty(false);
-      const newValue = correctInput(inputRef.current.value);
-      inputRef.current.value = newValue;
+      setIsInputEmpty(false)
+      const newValue = correctInput(inputRef.current.value)
+      inputRef.current.value = newValue
     }
   }
 
@@ -61,14 +61,14 @@ export default function CreateChannel() {
       case "- ":
       case " ":
       case "-":
-        return input.slice(0, -1);
+        return input.slice(0, -1)
     }
 
-    return input.replace(/\s+/g, "-").toLowerCase();
+    return input.replace(/\s+/g, "-").toLowerCase()
   }
 
   function capitalize(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
   return (
@@ -121,67 +121,67 @@ export default function CreateChannel() {
         </FooterContainer>
       </Container>
     </Backdrop>
-  );
+  )
 }
 
 interface CreateButtonProps {
-  isInputEmpty: boolean;
+  isInputEmpty: boolean
 }
 
 const Backdrop = tw.div`
   fixed w-full h-full bg-black/[0.85] z-20
-`;
+`
 
 const Container = tw.div`
   fixed flex flex-col top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] w-110 bg-white rounded-md
-`;
+`
 
 const HeadingContainer = tw.div`
   pt-6 px-4 text-center
-`;
+`
 
 const Heading = tw.h2`
   w-full text-2xl font-bold
-`;
+`
 
 const Body = tw.p`
   w-full mt-2 text-gray-500
-`;
+`
 
 const CloseIcon = tw.button`
   absolute top-4 right-4 p-1
-`;
+`
 
 const StyledImage = tw(Image)`
-`;
+`
 
 const ContentContainer = tw.div`
   my-4 pr-2 pl-4
-`;
+`
 
 const FormContainer = tw.form`
   mt-6
-`;
+`
 
 const ContentLabel = tw.label`
-  mb-4 text-xs text-gray-800 font-semibold
-`;
+  mb-4 text-xs text-gray-100 font-semibold
+`
 
 const ContentInput = tw.input`
-  w-full h-10 p-2.5 border rounded-middle text-gray-800 font-medium
-`;
+  w-full h-10 p-2.5 border rounded-middle text-gray-100 font-medium
+`
 
 const FooterContainer = tw.div`
   flex justify-end items-center p-4 bg-gray-50 text-sm font-medium
-`;
+`
 
 const CancelButton = tw.button`
   w-24 h-9.5 px-1 py-0.5 text-sm font-medium text-gray-500
   hover:underline
-`;
+`
 
 const CreateButton = tw.button`
   w-fit h-9.5 px-4 py-0.5 bg-indigo-500 text-white rounded-middle
   ${(props: CreateButtonProps) =>
     props.isInputEmpty ? "opacity-50 cursor-not-allowed" : null}
-`;
+`

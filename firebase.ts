@@ -73,7 +73,7 @@ export async function createAccount(
 
       about: "",
 
-      banner: "#7CC6FE",
+      banner: "#1d4ed8",
 
       email: user.email,
     })
@@ -165,7 +165,7 @@ export async function signInAsGuest() {
 
       about: "",
 
-      banner: "#7CC6FE",
+      banner: "#1d4ed8",
 
       email: guest.email,
     })

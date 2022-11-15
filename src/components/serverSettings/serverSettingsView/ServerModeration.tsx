@@ -1,23 +1,23 @@
-import { useEffect, useRef } from "react";
-import tw from "tailwind-styled-components/dist/tailwind";
+import { useEffect, useRef } from "react"
+import tw from "tailwind-styled-components/dist/tailwind"
 import {
   setServerContentFilter,
   useServersState,
-} from "../../../features/servers";
+} from "../../../features/servers"
 import {
   setServerChangesMade,
   useServerSettingsState,
-} from "../../../features/serverSettings";
-import { useAppDispatch } from "../../../redux/hooks";
+} from "../../../features/serverSettings"
+import { useAppDispatch } from "../../../redux/hooks"
 
 export default function ServerModeration() {
-  const offInputRef = useRef<HTMLInputElement>(null);
-  const lowInputRef = useRef<HTMLInputElement>(null);
-  const mediumInputRef = useRef<HTMLInputElement>(null);
-  const highInputRef = useRef<HTMLInputElement>(null);
-  const { server } = useServersState();
-  const { serverCopy } = useServerSettingsState();
-  const dispatch = useAppDispatch();
+  const offInputRef = useRef<HTMLInputElement>(null)
+  const lowInputRef = useRef<HTMLInputElement>(null)
+  const mediumInputRef = useRef<HTMLInputElement>(null)
+  const highInputRef = useRef<HTMLInputElement>(null)
+  const { server } = useServersState()
+  const { serverCopy } = useServerSettingsState()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (
@@ -26,36 +26,36 @@ export default function ServerModeration() {
       !mediumInputRef.current ||
       !highInputRef.current
     )
-      return;
+      return
     switch (server.contentFilter) {
       case "off":
-        offInputRef.current.checked = true;
-        break;
+        offInputRef.current.checked = true
+        break
       case "low":
-        lowInputRef.current.checked = true;
-        break;
+        lowInputRef.current.checked = true
+        break
       case "medium":
-        mediumInputRef.current.checked = true;
-        break;
+        mediumInputRef.current.checked = true
+        break
       case "high":
-        highInputRef.current.checked = true;
-        break;
+        highInputRef.current.checked = true
+        break
     }
-  });
+  })
 
   useEffect(() => {
-    if (!serverCopy) return;
+    if (!serverCopy) return
 
     if (server !== serverCopy) {
-      dispatch(setServerChangesMade(true));
+      dispatch(setServerChangesMade(true))
     } else {
-      dispatch(setServerChangesMade(false));
+      dispatch(setServerChangesMade(false))
     }
-  }, [server, serverCopy]);
+  }, [server, serverCopy])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const newContentFilter = e.target.value;
-    dispatch(setServerContentFilter(newContentFilter));
+    const newContentFilter = e.target.value
+    dispatch(setServerContentFilter(newContentFilter))
   }
 
   return (
@@ -78,8 +78,8 @@ export default function ServerModeration() {
           <SettingContainer
             className={
               server.contentFilter === "off"
-                ? "bg-gray-200"
-                : "bg-gray-100 hover:bg-gray-100/75"
+                ? "bg-sky-400"
+                : "bg-gray-100   hover:bg-gray-100  /75"
             }
           >
             <SettingInput
@@ -105,8 +105,8 @@ export default function ServerModeration() {
           <SettingContainer
             className={
               server.contentFilter === "low"
-                ? "bg-gray-200"
-                : "bg-gray-100 hover:bg-gray-100/75"
+                ? "bg-sky-400"
+                : "bg-gray-100   hover:bg-gray-100  /75"
             }
           >
             <SettingInput
@@ -130,8 +130,8 @@ export default function ServerModeration() {
           <SettingContainer
             className={
               server.contentFilter === "medium"
-                ? "bg-gray-200"
-                : "bg-gray-100 hover:bg-gray-100/75"
+                ? "bg-sky-400"
+                : "bg-gray-100   hover:bg-gray-100  /75"
             }
           >
             <SettingInput
@@ -157,8 +157,8 @@ export default function ServerModeration() {
           <SettingContainer
             className={
               server.contentFilter === "high"
-                ? "bg-gray-200"
-                : "bg-gray-100 hover:bg-gray-100/75"
+                ? "bg-sky-400"
+                : "bg-gray-100   hover:bg-gray-100  /75"
             }
           >
             <SettingInput
@@ -181,59 +181,59 @@ export default function ServerModeration() {
         </SettingsContainer>
       </ServerSettings>
     </Container>
-  );
+  )
 }
 
 const Container = tw.main`
   min-w-[542px] max-w-[740px] pt-15 px-10 pb-20
-`;
+`
 
 const Heading = tw.h2`
   mb-5 text-xl font-semibold
-`;
+`
 
 const ServerSettings = tw.section`
   flex flex-col
-`;
+`
 
 const SubHeading = tw.h5`
-  mb-2 text-xs text-gray-800 font-semibold
-`;
+  mb-2 text-xs text-gray-100 font-semibold
+`
 
 const SubTextContainer = tw.div`
   mb-4
-`;
+`
 
 const SubText = tw.span`
   text-sm text-gray-600 font-medium
-`;
+`
 
 const Divider = tw.div`
   max-w-165 h-px border-t mt-10 border-gray-900/[0.08]
-`;
+`
 
 const Bold = tw(SubText)`
   font-[600]
-`;
+`
 
 const SettingsContainer = tw.div`
   flex flex-col max-w-[660px]
-`;
+`
 
 const SettingContainer = tw.div`
   flex items-center mb-2 p-2.5 rounded-middle cursor-pointer
-`;
+`
 
 const SettingInput = tw.input`
   w-min h-min ml-2 cursor-pointer scale-[1.75]
-`;
+`
 
 const SettingInputLabel = tw.label`
   flex flex-col w-full mr-2 ml-4 cursor-pointer
-`;
+`
 
 const SettingLabelText = tw.span`
-`;
+`
 
 const SettingLabelSubText = tw(SettingLabelText)`
-`;
+`

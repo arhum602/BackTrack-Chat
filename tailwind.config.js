@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   content: [
@@ -14,7 +14,7 @@ module.exports = {
       },
 
       colors: {
-        primary: "#7CC6FE",
+        primary: "#1d4ed8",
 
         active: "#3BA55D",
 
@@ -87,4 +87,4 @@ module.exports = {
     "bg-channel-link-background/[0.15]",
     "hover:bg-channel-link-background/100",
   ],
-};
+}
